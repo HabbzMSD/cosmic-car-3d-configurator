@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car In Space Configurator</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- 3D Canvas Container -->
+  <div id="canvas-container"></div>
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="visible">
+    <div class="spinner"></div>
+    <div id="loading-text">Loading Assets...</div>
+  </div>
+
+  <!-- UI Panel -->
+  <div id="ui-panel">
+    <div class="panel-header">
+      <h1>Car In Space</h1>
+      <p>Configurator</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="car">CAR</button>
+      <button class="tab-btn" data-tab="camera">CAMERA</button>
+      <button class="tab-btn" data-tab="env">ENVIRONMENT</button>
+      <button class="tab-btn" data-tab="fx">EFFECTS</button>
+    </div>
+
+    <div class="tab-content active" id="tab-car">
+      <div class="control-group">
+        <label for="car-select">Model</label>
+        <select id="car-select">
+          <option value="placeholder">Loading...</option>
+        </select>
+        <div style="margin-top: 5px;">
+          <input type="file" id="upload-car" accept=".glb, .gltf" style="display:none">
+          <button class="action-btn" onclick="document.getElementById('upload-car').click()">Upload Custom Car</button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label>Body Paint</label>
+        <input type="color" id="color-body" value="#ff0000">
+      </div>
+      <div class="control-group">
+        <label>Rims</label>
+        <input type="color" id="color-rims" value="#cccccc">
+      </div>
+      <div class="control-group">
+        <label>Calipers</label>
+        <input type="color" id="color-calipers" value="#ffff00">
+      </div>
+
+      <div class="control-group">
+        <label>Metallic</label>
+        <input type="range" id="mat-metal" min="0" max="1" step="0.01" value="0.9">
+      </div>
+      <div class="control-group">
+        <label>Roughness</label>
+        <input type="range" id="mat-rough" min="0" max="1" step="0.01" value="0.1">
+      </div>
+      <div class="control-group">
+        <label>Clearcoat</label>
+        <input type="range" id="mat-clearcoat" min="0" max="1" step="0.01" value="1.0">
+      </div>
+
+      <div class="control-group">
+        <label>Panels</label>
+        <div class="button-row">
+          <button id="btn-doorL" class="toggle-btn" disabled>L Door</button>
+          <button id="btn-doorR" class="toggle-btn" disabled>R Door</button>
+          <button id="btn-hood" class="toggle-btn" disabled>Hood</button>
+          <button id="btn-trunk" class="toggle-btn" disabled>Trunk</button>
+        </div>
+        <p id="panel-hint" class="hint">Some parts may not be supported by this model.</p>
+      </div>
+
+      <div class="control-group">
+        <label>Lights</label>
+        <div class="button-row">
+          <button id="btn-headlights" class="toggle-btn">Headlights</button>
+        </div>
+      </div>
+      <div class="control-group">
+        <label>Underglow</label>
+        <div class="flex-row">
+          <button id="btn-underglow" class="toggle-btn">Toggle</button>
+          <input type="color" id="color-underglow" value="#00ffff">
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-camera">
+      <div class="control-group">
+        <label>Presets</label>
+        <div class="button-grid">
+          <button class="cam-btn" data-preset="front">Front</button>
+          <button class="cam-btn" data-preset="rear">Rear</button>
+          <button class="cam-btn" data-preset="left">Left</button>
+          <button class="cam-btn" data-preset="right">Right</button>
+          <button class="cam-btn" data-preset="top">Top</button>
+          <button class="cam-btn" data-preset="cinematic">3/4 Cinematic</button>
+        </div>
+      </div>
+      <div class="control-group">
+        <label>FOV</label>
+        <input type="range" id="cam-fov" min="20" max="90" step="1" value="45">
+      </div>
+      <button id="btn-reset-view" class="action-btn">Reset View</button>
+    </div>
+
+    <div class="tab-content" id="tab-env">
+      <div class="control-group">
+        <label>Ambient Light</label>
+        <input type="range" id="env-ambient" min="0" max="2" step="0.1" value="0.5">
+      </div>
+      <div class="control-group">
+        <label>Key Light</label>
+        <input type="range" id="env-key" min="0" max="5" step="0.1" value="2.0">
+      </div>
+      <div class="control-group">
+        <label>Rim Light</label>
+        <input type="range" id="env-rim" min="0" max="5" step="0.1" value="1.0">
+      </div>
+      <hr>
+      <div class="control-group">
+        <label>Space Station</label>
+        <button id="btn-station" class="toggle-btn active">Toggle Station</button>
+        <div style="margin-top: 5px;">
+          <input type="file" id="upload-station" accept=".glb, .gltf" style="display:none">
+          <button class="action-btn" style="font-size: 0.8rem; padding: 5px;"
+            onclick="document.getElementById('upload-station').click()">Upload Custom Station</button>
+        </div>
+      </div>
+      <div class="control-group">
+        <label>Station Scale</label>
+        <input type="range" id="station-scale" min="0.5" max="5" step="0.1" value="1.0">
+      </div>
+      <div class="control-group">
+        <label>Station Rotation Speed</label>
+        <input type="range" id="station-speed" min="0" max="2" step="0.1" value="0.2">
+      </div>
+      <div class="control-group">
+        <label>Station Color</label>
+        <input type="color" id="station-color" value="#00e5ff">
+      </div>
+      <div class="control-group">
+        <label>Star Density</label>
+        <input type="range" id="star-density" min="0" max="5000" step="100" value="1500">
+      </div>
+      <hr>
+      <div class="control-group">
+        <label>Background Environment</label>
+        <div style="margin-top: 5px;">
+          <input type="file" id="upload-bg" accept=".hdr, image/png, image/jpeg" style="display:none">
+          <button class="action-btn" style="font-size: 0.8rem; padding: 5px;"
+            onclick="document.getElementById('upload-bg').click()">Upload Custom HDRI / Image</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-fx">
+      <div class="control-group">
+        <label>Performance Mode</label>
+        <button id="btn-perf-mode" class="toggle-btn">Enable (Disables Bloom)</button>
+      </div>
+      <div class="control-group">
+        <label>Bloom Exposure</label>
+        <input type="range" id="fx-exposure" min="0.1" max="3" step="0.1" value="1.0">
+      </div>
+      <div class="control-group">
+        <label>Car Float Animation</label>
+        <div class="flex-row">
+          <button id="btn-float" class="toggle-btn active">Toggle</button>
+        </div>
+      </div>
+      <hr>
+      <div class="control-group">
+        <button id="btn-screenshot" class="action-btn"
+          style="background: #00e5ff; color: #000; font-weight: bold;">Capture Screenshot</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>

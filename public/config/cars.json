@@ -1,0 +1,67 @@
+{
+  "cars": [
+    {
+      "id": "placeholder",
+      "name": "Fallback Procedural Box",
+      "url": "/assets/cars/non_existent.glb",
+      "mapping": {
+        "bodyPaintMeshes": [
+          "body"
+        ],
+        "rimMeshes": [
+          "rim"
+        ],
+        "caliperMeshes": [
+          "caliper"
+        ],
+        "doorLeft": [
+          "door_L"
+        ],
+        "doorRight": [
+          "door_R"
+        ],
+        "hood": [
+          "hood"
+        ],
+        "trunk": [
+          "trunk"
+        ],
+        "headlights": [
+          "headlight"
+        ]
+      }
+    },
+    {
+      "id": "car-from-manus",
+      "name": "Car From Manus",
+      "url": "/assets/cars/car-from-manus.glb",
+      "mapping": {
+        "bodyPaintMeshes": [],
+        "rimMeshes": [],
+        "caliperMeshes": [],
+        "doorLeft": [],
+        "doorRight": [],
+        "hood": [],
+        "trunk": [],
+        "headlights": []
+      }
+    },
+    {
+      "id": "porsche",
+      "name": "Porsche 911",
+      "url": "/assets/cars/free_1975_porsche_911_930_turbo.glb",
+      "mapping": {
+        "bodyPaintMeshes": [
+          "paint"
+        ],
+        "rimMeshes": [
+          "930_rim"
+        ],
+        "caliperMeshes": [],
+        "headlights": [
+          "930_lights"
+        ]
+      }
+    }
+  ]
+}
