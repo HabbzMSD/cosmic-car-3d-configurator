@@ -156,7 +156,17 @@
       </div>
       <hr>
       <div class="control-group">
-        <label>Background Environment</label>
+        <label>Default Background</label>
+        <select id="bg-select">
+          <option value="procedural">Procedural Space (Default)</option>
+          <option value="underwater">Underwater</option>
+          <option value="desert">Desert</option>
+          <option value="racetrack">Race Track</option>
+          <option value="custom" hidden>Custom</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>Custom Environment</label>
         <div style="margin-top: 5px;">
           <input type="file" id="upload-bg" accept=".hdr, image/png, image/jpeg" style="display:none">
           <button class="action-btn" style="font-size: 0.8rem; padding: 5px;"

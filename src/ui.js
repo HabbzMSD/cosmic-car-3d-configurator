@@ -205,6 +205,20 @@ export class UIManager {
                 const file = e.target.files[0];
                 const url = URL.createObjectURL(file);
                 sceneSetup.loadCustomBackground(url);
+                // Reset select since we use custom
+                document.getElementById('bg-select').value = 'custom';
+            }
+        });
+
+        // Ensure there's a custom option in HTML or just ignore it, but we can set value.
+        // Also add logic for predefined backgrounds
+        const bgSelect = document.getElementById('bg-select');
+        bgSelect.addEventListener('change', (e) => {
+            const val = e.target.value;
+            if (val === 'procedural') {
+                sceneSetup.resetEnvironment();
+            } else if (val !== 'custom') {
+                sceneSetup.loadCustomBackground(`/assets/background/${val}.png`);
             }
         });
     }

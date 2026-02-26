@@ -115,6 +115,17 @@ export class SceneSetup {
         texture.dispose();
     }
 
+    resetEnvironment() {
+        if (this.scene.background && this.scene.background.isTexture) {
+            this.scene.background.dispose();
+        }
+        this.scene.background = new THREE.Color(0x050508);
+
+        const colorInput = document.getElementById('station-color');
+        const hex = colorInput ? colorInput.value : '#00e5ff';
+        this.updateEnvironmentColor(hex);
+    }
+
     setupStarfield(count) {
         if (this.stars) this.scene.remove(this.stars);
 
